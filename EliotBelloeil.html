@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eliot Belloeil — Portfolio BUT Informatique</title>
+  <meta name="description" content="Portfolio d'Eliot Belloeil, étudiant en BUT Informatique à Lannion. Objectifs, formation, compétences, projets et contact." />
+
+  <!-- Palette: fond clair, accents vifs. Les compétences sont en bleu. -->
+  <style>
+    :root{
+      --bg:#0b0f14;            /* fond principal sombre chic */
+      --card:#121826;          /* cartes/sections */
+      --muted:#9fb0c9;         /* textes secondaires */
+      --text:#e9f0ff;          /* texte principal */
+      --accent:#76ffa8;        /* vert menthe pour CTA */
+      --accent-2:#ffcc66;      /* doré doux pour détails */
+      --skill:#2b7cff;         /* BLEU pour les 6 compétences */
+      --skill-ghost:#1a3f94;   /* halo de la puce compétence */
+      --chip:#1b2333;          /* puces tech */
+      --link:#8bd1ff;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 10% -10%, #1a2336 0%, #0b0f14 60%) fixed;
+      line-height:1.55;
+    }
+
+    /* Layout de base */
+    header{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(8px);
+      background: rgba(11,15,20,.6);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      max-width:1100px; margin:auto; padding:12px 20px;
+      display:flex; align-items:center; gap:18px; justify-content:space-between;
+    }
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text)}
+    .logo{
+      width:36px; height:36px; border-radius:10px;
+      background: conic-gradient(from 210deg, var(--accent), var(--accent-2), var(--skill), var(--accent));
+      box-shadow: 0 0 0 3px rgba(255,255,255,.06), inset 0 0 30px rgba(0,0,0,.2);
+    }
+    .nav a{color:var(--muted); text-decoration:none; font-weight:600}
+    .nav a:hover{color:var(--text)}
+    .cta{
+      background: linear-gradient(135deg, var(--accent), #4effc7);
+      color:#05130b; padding:10px 14px; border-radius:10px; font-weight:800;
+      box-shadow: var(--shadow); border:none; cursor:pointer;
+    }
+
+    main{max-width:1100px; margin:auto; padding:32px 20px 80px}
+
+    /* Hero */
+    .hero{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:center;
+      margin:28px 0 36px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius); padding:24px; box-shadow: var(--shadow);
+    }
+    .title{
+      font-size: clamp(28px, 3.8vw, 44px); line-height:1.15; margin:0 0 10px;
+      letter-spacing:.2px;
+    }
+    .subtitle{color:var(--muted); margin:0 0 14px}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      background: var(--chip); padding:8px 12px; border-radius:999px; color:var(--muted);
+      border:1px solid rgba(255,255,255,.06); margin-right:10px; margin-top:8px;
+    }
+    .hero-cta{display:flex; gap:12px; margin-top:14px; flex-wrap:wrap}
+
+    /* Grilles */
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns: repeat(3, 1fr)}
+    .grid.cols-2{grid-template-columns: repeat(2, 1fr)}
+
+    /* Section titres */
+    h2{
+      margin:32px 0 14px; font-size: clamp(22px, 2.4vw, 28px);
+      letter-spacing:.3px;
+    }
+    h3{margin:0 0 8px; font-size:18px}
+
+    /* Compétences */
+    .skill{
+      border:1px solid rgba(43,124,255,.35);
+      background: linear-gradient(180deg, rgba(23,48,106,.55), rgba(17,31,64,.45));
+      position:relative; overflow:hidden;
+    }
+    .skill::before{
+      content:""; position:absolute; inset:-2px;
+      background: radial-gradient(600px 120px at 10% -10%, rgba(43,124,255,.35), transparent 55%),
+                  radial-gradient(400px 100px at 90% 120%, rgba(24,76,197,.25), transparent 60%);
+      pointer-events:none;
+    }
+    .skill-tag{
+      display:inline-flex; align-items:center; gap:8px;
+      color:#dfe9ff; font-weight:700; letter-spacing:.2px;
+      background: rgba(43,124,255,.18);
+      border:1px solid rgba(43,124,255,.5);
+      padding:6px 10px; border-radius:999px; box-shadow: inset 0 0 25px rgba(43,124,255,.22);
+    }
+    .proof{
+      display:flex; flex-wrap:wrap; gap:8px; margin-top:10px
+    }
+    .proof a{
+      color:var(--link); text-decoration:none; background:rgba(139,209,255,.08);
+      border:1px solid rgba(139,209,255,.25); padding:6px 10px; border-radius:9px;
+    }
+    .proof a:hover{background:rgba(139,209,255,.16)}
+
+    /* Listes tech */
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
+    .chip{
+      background:var(--chip); color:var(--text);
+      border:1px solid rgba(255,255,255,.06);
+      padding:6px 10px; border-radius:10px; font-weight:600;
+    }
+
+    /* Timeline formation */
+    .timeline{position:relative; padding-left:18px}
+    .timeline::before{
+      content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px;
+      background: linear-gradient(180deg, var(--accent-2), transparent);
+      opacity:.7;
+    }
+    .edu{
+      position:relative; margin:12px 0; padding-left:8px;
+    }
+    .edu::before{
+      content:""; position:absolute; left:-12px; top:10px; width:10px; height:10px; border-radius:50%;
+      background: var(--accent-2); box-shadow: 0 0 0 4px rgba(255,204,102,.18);
+    }
+    .edu small{color:var(--muted)}
+
+    /* Footer */
+    footer{
+      border-top:1px solid rgba(255,255,255,.06);
+      background: #0a0e13; color:var(--muted);
+      padding:30px 20px; text-align:center;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr}
+      .grid.cols-3{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .grid.cols-2, .grid.cols-3{grid-template-columns: 1fr}
+      .nav{gap:10px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#top">
+        <span class="logo" aria-hidden="true"></span>
+        <strong>Eliot Belloeil</strong>
+      </a>
+      <div style="display:flex; gap:16px; align-items:center;">
+        <a href="#profil">Profil</a>
+        <a href="#formation">Formation</a>
+        <a href="#competences">Compétences/Projets</a>
+        <a href="#projets">Hobbie</a>
+        <a href="#contact">Contact</a>
+        <a class="cta" href="https://github.com/loug6981-cell" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="card">
+        <h1 class="title">Étudiant en BUT Informatique — 1ère année, IUT de Lannion</h1>
+        <p class="subtitle">
+          Je m'appelle <strong>Eliot Belloeil</strong>, 18 ans. Je recherche une <strong>alternance à partir de 2026</strong>
+          pour renforcer mes compétences en <strong>développement logiciel</strong> et <strong>bases de données</strong>,
+          et acquérir une expérience professionnelle concrète.
+        </p>
+        <div class="chips">
+          <span class="chip">Python</span>
+          <span class="chip">Java</span>
+          <span class="chip">C</span>
+          <span class="chip">PHP</span>
+          <span class="chip">HTML/CSS</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Modélisation relationnelle</span>
+          <span class="chip">VS Code</span>
+          <span class="chip">Visual Paradigm</span>
+          <span class="chip">Docker</span>
+        </div>
+        <div class="hero-cta">
+          <a class="pill" href="#competences">Voir mes 6 compétences</a>
+          <a class="pill" href="https://github.com/loug6981-cell" target="_blank" rel="noopener">Accéder à mon GitHub →</a>
+        </div>
+      </div>
+
+      <aside class="card" id="profil">
+        <h3>Objectifs</h3>
+        <p style="margin:0 0 8px">
+          - Intégrer une équipe en alternance dès 2026<br/>
+          - Contribuer à des applications web et systèmes d'information<br/>
+          - Monter en expertise sur l'architecture logicielle et la qualité
+        </p>
+        <div class="chips">
+          <span class="chip">Curiosité</span>
+          <span class="chip">Rigueur</span>
+          <span class="chip">Esprit d'équipe</span>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Formation -->
+    <section id="formation">
+      <h2>Formation et diplômes</h2>
+      <div class="card">
+        <div class="timeline">
+          <div class="edu">
+            <h3>BUT Informatique — IUT de Lannion</h3>
+            <small>2025 — 2028 (actuel, 1ère année)</small>
+            <p class="subtitle">Parcours axé développement, algorithmique, systèmes, bases de données, gestion de projet et communication.</p>
+          </div>
+          <div class="edu">
+            <h3>Baccalauréat</h3>
+            <small>Année d'obtention</small>
+            <p class="subtitle">Spécialités scientifiques et numériques. Projets personnels autour de la programmation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compétences (6 en BLEU) -->
+    <section id="competences">
+      <h2>Mes 6 compétences clés et leurs projets</h2>
+
+      <div class="grid cols-3">
+        <!-- 1 -->
+        <article class="card skill">
+          <span class="skill-tag">UE1.1 — Réaliser un développement d'application</span>
+          <p class="subtitle">
+            Concevoir, coder et tester des fonctionnalités à partir d'un besoin client.
+          </p>
+          <ul>
+            <li>Sokoban : Jeu de réflexion classique affiché dans le terminal. Le joueur sélectionne un niveau et doit placer toutes les caisses sur les cibles en utilisant la logique et la stratégie. Réalisé dans le cadre de la validation de compétences en développement.</li>
+          </ul>
+          <div class="proof">
+            <a href="https://github.com/loug6981-cell/Sokoban-C" target="_blank" rel="noopener">Projet : Jeu Sokoban</a>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="card skill">
+          <span class="skill-tag">UE1.2 — Optimiser des applications informatiques</span>
+          <p class="subtitle">
+            Automatisé, comparer des approches algorithmiques, améliorer les performances.
+          </p>
+          <ul>
+            <li>Version automatique du Sokoban : le joueur sélectionne un niveau et une chaîne de caractères (fournie en fichier) qui pilote la résolution du puzzle de manière automatisée. Un exercice approfondi de logique algorithmique.</li>
+          </ul>
+          <div class="proof">
+            <a href="https://github.com/loug6981-cell/Sokoban-C-Auto" target="_blank" rel="noopener">Projet : Sokoban Automatisé</a>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="card skill">
+          <span class="skill-tag">UE1.3 — Administrer des SI communicants</span>
+          <p class="subtitle">
+            Installer un poste de dev, comprendre OS et réseaux, communiquer techniquement.
+          </p>
+          <ul>
+            <li>Docker, scripts d'environnement, notions réseaux et OS.</li>
+            <li>Documentation et anglais technique.</li>
+          </ul>
+          <div class="proof">
+            <a href="https://github.com/loug6981-cell/Projet-Docker-Bash" target="_blank" rel="noopener">Projet : Automatisé une traduction de langage avec Docker</a>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="card skill">
+          <span class="skill-tag">UE1.4 — Gérer des données de l'information</span>
+          <p class="subtitle">
+            Modéliser, créer et interroger une base relationnelle conforme aux besoins.
+          </p>
+          <ul>
+            <li>Une base de donnée en Tutorial-D avec diagramme de classe</li>
+            <li>Conception avec Visual Paradigm.</li>
+          </ul>
+          <div class="proof">
+            <a href="https://github.com/loug6981-cell/Base_de_donnees-Projet_gestion" target="_blank" rel="noopener">Projet : Conception d'une base de données</a>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="card skill">
+          <span class="skill-tag">UE1.5 — Conduite de projet</span>
+          <p class="subtitle">
+            Cadrer les objectifs, planifier, suivre l'avancement et présenter les résultats.
+          </p>
+          <ul>
+            <li>Création d'un site web sur le thème du Brésil</li>
+            <li>HTML/CSS, livrables et soutenances.</li>
+          </ul>
+          <div class="proof">
+            <a href="https://github.com/loug6981-cell/Site_Web_Bresil" target="_blank" rel="noopener">Projet : Création d'un site web</a>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="card skill">
+          <span class="skill-tag">UE1.6 — Travailler en équipe informatique</span>
+          <p class="subtitle">
+            Identifier ses aptitudes pour travailler dans une équipe
+          </p>
+          <ul>
+            <li>Création d'un site web en équipe</li>
+            <li>Communication claire et feedbacks constructifs et soutenances.</li>
+          </ul>
+          <div class="proof">
+            <a href="https://github.com/loug6981-cell/Site_Web_Bresil" target="_blank" rel="noopener">Projet : Travail en équipe</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projets -->
+    <section id="projets">
+      <h2>Realisations personnels</h2>
+      <div class="grid cols-2">
+        <article class="card">
+
+
+          <h3>Simulation de Sport avec des cheveaux !!</h3>
+          <p class="subtitle">Un code en java qui simule une course de cheveaux dans le terminal</p>
+          <div class="chips">
+            <span class="chip">Java</span><span class="chip">FastAPI/Flask</span><span class="chip">Docker</span><span class="chip">Terminal</span>
+          </div>
+          <div class="proof"><a href="https://github.com/loug6981-cell/Un-projet-en-java" target="_blank" rel="noopener">Projet : Course et Gestion de stock</a></div>
+        </article>
+
+
+
+
+        <article class="card">
+          <h3>Maquettage</h3>
+          <p class="subtitle">Maquettage, sur figma avant de ce lancer dans la création du site vue avant ainsi qu'une autre pour une boulangerie</p>
+          <div class="chips">
+            <span class="chip">HTML/CSS</span><span class="chip">Figma</span><span class="chip">Block</span><span class="chip">Modélisation</span>
+          </div>
+          <div class="proof"><a href="https://www.figma.com/design/foa4G2HEIygV6fciZ4I3Oh/Brazil?node-id=0-1&p=f&t=D5pqeX7OzddcLRdz-0" target="_blank" rel="noopener">Maquette du brésil</a></div>
+          <div class="proof"><a href="https://www.figma.com/design/wZGs14nMVqGBvM8hCrn068/Maquettes-Principale-Boulangerie-Chausson?node-id=2-2&p=f&t=h9zHXFWyCZXfNe8V-0" target="_blank" rel="noopener">Maquette sur boulangerie</a></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p>Je suis ouvert aux échanges pour une alternance à partir de 2026. N'hésitez pas à me contacter.</p>
+        <div class="chips">
+          <span class="chip">Eliot Belloeil</span>
+          <a class="chip" href="mailto:prenom.nom@example.com">loug6981@gmail.com</a>
+          <a class="chip" href="https://github.com/loug6981-cell" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="y"></span> Eliot Belloeil — Portfolio BUT Informatique
+  </footer>
+
+  <script>
+    // met l'année courante
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
